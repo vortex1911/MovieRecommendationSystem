@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-from embeddings.embedder import embed_text
+from embeddings.embedder import embed_text, get_all_movie_embeddings
+
 
 def recommend_from_liked_movies(movie_titles, movies_df, top_n=5):
     movies_df = movies_df.dropna(subset=['overview'])
@@ -19,7 +20,7 @@ def recommend_from_liked_movies(movie_titles, movies_df, top_n=5):
     liked_vecs = np.array([embed_text(plot) for plot in liked_plots])
     preference_vector = np.mean(liked_vecs, axis=0)
 
-    all_embeddings = np.array([embed_text(text) for text in movies_df['overview']])
+    all_embeddings = get_all_movie_embeddings(movies_df['overview'])
     similarities = cosine_similarity([preference_vector], all_embeddings)[0]
 
     top_indices = similarities.argsort()[-top_n-1:][::-1]
