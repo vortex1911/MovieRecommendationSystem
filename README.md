@@ -20,7 +20,7 @@ It can suggest movies in two powerful ways:
 
 ## 🗂️ Project Structure
 
-.
+
 ├── main.py # Main CLI application
 
 ├── recommend_by_movies.py # Recommender based on liked titles
